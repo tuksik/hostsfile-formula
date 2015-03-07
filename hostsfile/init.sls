@@ -2,24 +2,16 @@
 # the minion id has to be the fqdn for this to work
 
 {%- set fqdn = grains['id'] %}
-# example configuration for /etc/salt/minion:
-#
-# mine_functions:
-#  network.ip_addrs:
-#    - eth1
-#  mine_interval: 2
 
 {%- set addrs = grains['external_ip'] %}
 
 {%- if addrs is defined %}
 
-{%- for name, addrlist in addrs.items() %}
-{{ name }}-host-entry:
+{{ fqdn }}-host-entry:
   host.present:
-    - ip: {{ addrlist|first() }}
+    - ip: {{ addrs }}
     - names:
-      - {{ name }}
-{% endfor %}
+      - {{ fqdn }}
 
 {% endif %}
 
