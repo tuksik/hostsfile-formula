@@ -9,7 +9,7 @@
 #    - eth1
 #  mine_interval: 2
 
-{%- set addrs = salt['mine.get']('*', 'network.ip_addrs') %}
+{%- set addrs = grains['external_ip'] %}
 
 {%- if addrs is defined %}
 
